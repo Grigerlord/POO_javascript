@@ -1,4 +1,4 @@
-import { PlatziClase } from "./main.mjs";
+//import { PlatziClase } from "./main.js";
 
 const clase67 = new PlatziClase({
     name: "Javascript: Orientado a objetos basado en prototipos",

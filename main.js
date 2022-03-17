@@ -158,6 +158,41 @@
 //         }
 //     ]
 // }
+class Comentario{
+    constructor({
+        contenido,
+        nombreEstudiante,
+        cargoEstudiante = 'estudiante'
+    }){
+        this.contenido = contenido
+        this.nombreEstudiante = nombreEstudiante
+        this.cargoEstudiante = cargoEstudiante
+        this.likes = 0
+    }
+
+    publicar(){
+        console.log(this.nombreEstudiante + ' (' + this.cargoEstudiante + ')')
+        console.log(this.likes + ' likes')
+        console.log(this.contenido)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -173,7 +208,7 @@ function videoStop(id) {
 
 
 
-export class PlatziClase{
+class PlatziClase{
     constructor({
         name,
         videoID,
@@ -260,10 +295,14 @@ const queEsHTML = new Clase({
 class Curso {
     constructor({
         name,
-        listaDeClases = []
+        listaDeClases = [],
+        esGratis = false,
+        lang = 'Spanish'
     }) {
         this._name = name
         this.listaDeClases = listaDeClases
+        this.esGratis = esGratis
+        this.lang = lang
     }
 
     get name() {
@@ -281,48 +320,78 @@ class Curso {
 
 const cursoAdministracionDelTiempo = new Curso({
     name: 'Curso de Administración del tiempo',
+    esGratis: true,
+    lang: 'English'
 })
 const cursoEscribirMucho = new Curso({
-    name: 'Curso de EscrinirMucho',
+    name: 'Curso de Escribir Mucho',
+    esGratis: false,
+    lang: 'English'
 })
 const cursoPlanificarMucho = new Curso({
     name: 'Curso de Planificar Mucho',
+    esGratis: true,
+    lang: 'English'
 })
 const cursoRenuncioNoPuedo = new Curso({
     name: 'Curso de Renuncio No Puedo',
+    esGratis: false,
+    lang: 'Spanish'
 })
 const cursoEcharCarro = new Curso({
     name: 'Curso de Echar Carro',
+    esGratis: true,
+    lang: 'Spanish'
 })
 const cursoMandaHacer = new Curso({
     name: 'Curso de Mandar A Hacer',
+    esGratis: true,
+    lang: 'Spanish'
 })
 const cursoPagameMucho = new Curso({
     name: 'Curso de Pagame Mucho',
+    esGratis: true,
+    lang: 'Spanish'
 })
 const cursoHTML = new Curso({
     name: 'Curso de HTML',
+    esGratis: true,
+    lang: 'English'
 })
 const cursoCSS = new Curso({
     name: 'Curso de CSS',
+    esGratis: false,
+    lang: 'English'
 })
 const cursoJS = new Curso({
     name: 'Curso de JS',
+    esGratis: false,
+    lang: 'English'
 })
 const cursoPHP = new Curso({
     name: 'Curso de PHP',
+    esGratis: false,
+    lang: 'English'
 })
 const cursoClosureScope = new Curso({
     name: 'Curso de Closure y Scope',
+    esGratis: false,
+    lang: 'English'
 })
 const cursoAsincronismo = new Curso({
     name: 'Curso de Asincronismo',
+    esGratis: false,
+    lang: 'Spanish'
 })
 const cursoECMAScript = new Curso({
     name: 'Curso de ECMAScript',
+    esGratis: false,
+    lang: 'Spanish'
 })
 const cursoJavascriptProfesional = new Curso({
     name: 'Curso de Javascript Profesional',
+    esGratis: false,
+    lang: 'Spanish'
 })
 
 
@@ -432,10 +501,84 @@ class Student {
         this.cursosAprobados = cursosAprobados
         this.rutasDeAprendizaje = rutasDeAprendizaje
     }
+
+    publicarComentario(contenidoDelComentario){
+        const comentario = new Comentario({
+            contenido: contenidoDelComentario,
+            nombreEstudiante: this.name
+        })
+
+        comentario.publicar()
+    }
 }
 
-const griger = new Student({
-    neme: 'Griger Ratia',
+class EstudianteLibre extends Student{
+    constructor(propis) {
+        super(propis)
+    }
+
+    aprobarCurso(nuevoCurso){
+        if(nuevoCurso.esGratis){
+            this.cursosAprobados.push(nuevoCurso)
+        } else{
+            console.warn('Lo sentimos, ' + this.name + ', solo puedes tomar cursos Gratis.')
+        }
+    }
+}
+
+class EstudianteBasico extends Student{
+    constructor(propis) {
+        super(propis)
+    }
+
+    aprobarCurso(nuevoCurso){
+        if(nuevoCurso.lang !== 'english'){
+            this.cursosAprobados.push(nuevoCurso)
+        } else{
+            console.warn('Lo sentimos, ' + this.name + ', solo puedes tomar cursos en English.')
+        }
+    }
+
+}
+
+class EstudianteExperto extends Student{
+    constructor(propis) {
+        super(propis)
+    }
+
+    aprobarCurso(nuevoCurso){
+            this.cursosAprobados.push(nuevoCurso)
+    }
+
+}
+
+class EstudianteProfesor extends Student{
+    constructor(propis) {
+        super(propis)
+    }
+
+    aprobarCurso(nuevoCurso){
+            this.cursosAprobados.push(nuevoCurso)
+    }
+
+    publicarComentario(contenidoDelComentario){
+        const comentario = new Comentario({
+            contenido: contenidoDelComentario,
+            nombreEstudiante: this.name,
+            cargoEstudiante: 'Profesor'
+        })
+
+        comentario.publicar()
+    }
+
+}
+
+
+
+
+
+const griger = new EstudianteExperto({
+    name: 'Griger Ratia',
     username: 'Grigerlord',
     email: 'grigerratia@gmail.com',
     instagram: '@grigerratia',
@@ -445,8 +588,8 @@ const griger = new Student({
     ]
 })
 
-const frank = new Student({
-    neme: 'Frank Amundaray',
+const frank = new EstudianteLibre({
+    name: 'Frank Amundaray',
     username: 'Sir. Frankenstein',
     email: 'frank_albert@gmail.com',
     twitter: '@frank_amundaray',
@@ -456,7 +599,33 @@ const frank = new Student({
     ]
 })
 
+const cesar = new EstudianteBasico({
+    name: 'Cesar Amundaray',
+    username: 'Cesareo',
+    email: 'cesar_luis@gmail.com',
+    twitter: '@cesar_amundaray',
+    rutasDeAprendizaje: [
+        escuelaMarketingDigital,
+        escuelaDesarrolloWeb
+    ]
+})
+
+const freddy = new EstudianteProfesor({
+    name: 'Freddy Vega',
+    username: 'Freddier',
+    email: 'jhon_freddy@gmail.com',
+    facebook: '@freddy_vega',
+    rutasDeAprendizaje: [
+        escuelaMarketingDigital,
+        escuelaDesarrolloWeb,
+        escuelaJavascript,
+        escuelaSocialMedia
+    ],
+})
+
 
 console.table(frank)
 console.table(griger)
+console.table(cesar)
+console.table(freddy)
 
