@@ -1,0 +1,26 @@
+{
+  "name": "poo_javascript",
+  "version": "1.0.0",
+  "description": "curso de POO con Javascript",
+  "main": "index.html, main.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grigerlord/POO_javascript.git"
+  },
+  "keywords": [
+    "get",
+    "set",
+    "new",
+    "constructor",
+    "class"
+  ],
+  "author": "griger ratia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Grigerlord/POO_javascript/issues"
+  },
+  "homepage": "https://github.com/Grigerlord/POO_javascript#readme"
+}
